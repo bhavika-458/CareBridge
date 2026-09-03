@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareBridge — Simple Daily-Care Assistant for Caregivers</title>
+  <meta name="description" content="CareBridge is a simple daily-care assistant for ordinary family caregivers and care staff. Keep medicines, daily changes, appointments, and care information in one simple place." />
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Accessibility: Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- =========================================================================
+       Global Top Navigation Header
+       ========================================================================= -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="nav-wrapper">
+        <!-- Logo -->
+        <a href="#home" class="brand-logo" id="nav-brand-link" aria-label="CareBridge Home">
+          <div class="logo-symbol" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+              <path d="M4 19h16"/>
+              <path d="M7 19v-3"/>
+              <path d="M17 19v-3"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="brand-name">CareBridge</span>
+            <span class="brand-tagline">Daily Care Assistant</span>
+          </div>
+        </a>
+
+        <!-- Navigation Context: Landing vs App Navigation -->
+        <!-- 1. Landing Navigation -->
+        <nav class="main-nav" id="landing-nav" role="navigation" aria-label="Landing Navigation">
+          <ul class="nav-list" id="primary-nav-menu">
+            <li><a href="#home" class="nav-link active" data-nav="home">Home</a></li>
+            <li><a href="#about" class="nav-link" data-nav="about">About</a></li>
+            <li><a href="#features" class="nav-link" data-nav="features">Features</a></li>
+            <li><button type="button" class="nav-link btn-link" id="nav-login-btn">Login</button></li>
+          </ul>
+        </nav>
+
+        <!-- 2. Main Application Navigation (Visible when inside App) -->
+        <nav class="app-nav" id="app-nav" role="navigation" aria-label="Application Navigation" style="display: none;">
+          <ul class="app-nav-list">
+            <li>
+              <button type="button" class="app-nav-tab active" data-tab="dashboard">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Dashboard</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="app-nav-tab" data-tab="today-care">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Today's Care</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="app-nav-tab" data-tab="concerns">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span>Concerns</span>
+                <span class="badge-counter" id="concerns-nav-badge" style="display:none;">0</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="app-nav-tab" data-tab="appointments">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Appointments</span>
+              </button>
+            </li>
+            <!-- More Dropdown -->
+            <li class="dropdown-container">
+              <button type="button" class="app-nav-tab dropdown-trigger" id="more-menu-trigger" aria-haspopup="true" aria-expanded="false">
+                <span>More</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+              <div class="dropdown-menu" id="more-dropdown-menu" role="menu" aria-labelledby="more-menu-trigger">
+                <button type="button" class="dropdown-item" data-tab="documents" role="menuitem">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                  <span>Medical Documents</span>
+                </button>
+                <button type="button" class="dropdown-item" data-tab="history" role="menuitem">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                  </svg>
+                  <span>Health History</span>
+                </button>
+                <button type="button" class="dropdown-item" data-tab="resources" role="menuitem">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                  </svg>
+                  <span>Care Resources (PDFs)</span>
+                </button>
+                <div class="dropdown-divider"></div>
+                <button type="button" class="dropdown-item" data-tab="profile" role="menuitem">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  <span>Profile</span>
+                </button>
+                <button type="button" class="dropdown-item" data-tab="settings" role="menuitem">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                  <span>Settings</span>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Right Side Nav Actions -->
+        <div class="nav-actions">
+          <!-- Active Patient Badge (Inside App) -->
+          <div class="patient-nav-badge" id="active-patient-badge" style="display: none;">
+            <button type="button" class="btn-patient-switch" id="btn-switch-patient" title="Switch Patient">
+              <span class="patient-avatar-mini" id="nav-patient-initials">EM</span>
+              <div class="patient-badge-info">
+                <span class="patient-badge-name" id="nav-patient-name">Eleanor Miller</span>
+                <span class="patient-badge-room" id="nav-patient-room">Room 204 • SC1024</span>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Get Started CTA (Landing View) -->
+          <div id="landing-cta-wrap">
+            <button type="button" class="btn btn-coral" id="header-get-started-btn">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+              <span>Get Started</span>
+            </button>
+          </div>
+
+          <!-- Exit App to Landing Link (App View) -->
+          <button type="button" class="btn btn-outline-teal btn-sm" id="btn-exit-app" style="display: none;">
+            <span>Exit to Home</span>
+          </button>
+
+          <!-- Mobile Nav Toggle (Landing) -->
+          <button class="mobile-nav-toggle" id="mobile-toggle" aria-expanded="false" aria-controls="primary-nav-menu" aria-label="Toggle navigation menu">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       MAIN CONTENT CONTAINER
+       ========================================================================= -->
+  <main id="main-content" role="main">
+
+    <!-- #####################################################################
+         PAGE VIEW 1: SHORT LANDING PAGE
+         ##################################################################### -->
+    <div id="view-landing" class="page-view active">
+      
+      <!-- 1. Hero Section -->
+      <section class="hero-section" id="home">
+        <div class="container">
+          <div class="hero-grid">
+            <!-- Hero Left Content -->
+            <div class="hero-content">
+              <div class="hero-badge-wrapper">
+                <span class="badge badge-teal">
+                  <svg class="badge-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                  </svg>
+                  Simple Daily-Care Assistant
+                </span>
+              </div>
+
+              <h1 class="hero-title">
+                Care that feels a little <span class="highlight">easier.</span>
+              </h1>
+
+              <p class="hero-description">
+                Keep medicines, daily changes, appointments and important care information in one simple place. Designed for family caregivers and care staff who need clarity without the clutter.
+              </p>
+
+              <div class="hero-actions">
+                <button type="button" class="btn btn-coral btn-lg" id="hero-get-started-btn">
+                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14"></path>
+                    <path d="M12 5l7 7-7 7"></path>
+                  </svg>
+                  Get Started
+                </button>
+
+                <button type="button" class="btn btn-outline-teal btn-lg" id="hero-demo-btn">
+                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                  </svg>
+                  Try Demo Patient (Eleanor)
+                </button>
+              </div>
+
+              <div class="hero-trust-list">
+                <div class="trust-item">
+                  <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>Quick Daily Checkup</span>
+                </div>
+                <div class="trust-item">
+                  <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>Normal stays simple</span>
+                </div>
+                <div class="trust-item">
+                  <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>Easy concern escalation</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hero Right: Live Visual Preview Card -->
+            <div class="hero-visual-card">
+              <div class="card-preview-header">
+                <div class="preview-tag">Live Daily-Care Preview</div>
+                <div class="preview-patient-meta">
+                  <div class="avatar-circle-sm">EM</div>
+                  <div>
+                    <strong>Eleanor Miller</strong>
+                    <span>Room 204 • SC1024</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="daily-status-banner-preview">
+                <div class="status-icon-box">✓</div>
+                <div class="status-text-wrap">
+                  <div class="status-main-title">Everything looks normal today</div>
+                  <div class="status-sub-title">All morning routines and medicines completed</div>
+                </div>
+              </div>
+
+              <div class="preview-metric-row">
+                <div class="preview-metric-box">
+                  <span class="metric-lbl">Medicines</span>
+                  <span class="metric-val text-teal">✓ 3/3 done</span>
+                </div>
+                <div class="preview-metric-box">
+                  <span class="metric-lbl">Mood</span>
+                  <span class="metric-val">😊 Good</span>
+                </div>
+                <div class="preview-metric-box">
+                  <span class="metric-lbl">Meals</span>
+                  <span class="metric-val">🍽 Normal</span>
+                </div>
+              </div>
+
+              <div class="preview-med-card">
+                <div class="preview-med-info">
+                  <div class="preview-med-dot done"></div>
+                  <div>
+                    <div class="preview-med-name">Donepezil 10mg</div>
+                    <div class="preview-med-time">Evening dose • 8:00 PM</div>
+                  </div>
+                </div>
+                <span class="badge badge-mint">Scheduled</span>
+              </div>
+
+              <div class="preview-footer-action">
+                <button type="button" class="btn btn-teal btn-block" id="preview-open-dash-btn">
+                  Open Full Dashboard Experience →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. About Section: Core UX Philosophy -->
+      <section class="about-section" id="about">
+        <div class="container">
+          <div class="about-card">
+            <div class="about-badge-center">
+              <span class="badge badge-amber">Core UX Principle</span>
+            </div>
+            <h2 class="about-quote">"Normal should be simple. Problems should reveal detail."</h2>
+            <p class="about-desc">
+              CareBridge is thoughtfully made for sons, daughters, family caregivers, and non-medical staff. Most days don't require digging through complex medical charts. You get an immediate daily checkup; when something unusual is observed, reporting and escalating it to clinical staff is seamless.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Five Simple Features: "Everything you need, in one place" -->
+      <section class="features-summary-section" id="features">
+        <div class="container">
+          <div class="section-header-center">
+            <span class="badge badge-teal">Everything you need, in one place</span>
+            <h2>Simple tools for daily peace of mind</h2>
+            <p class="section-subtitle">
+              Five essentials designed to keep care clear, organized, and accessible on any iPad, tablet, or mobile phone.
+            </p>
+          </div>
+
+          <div class="features-simple-grid">
+            <!-- Feature 1: Today's Care -->
+            <div class="simple-feature-card">
+              <div class="feature-icon-circle teal" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <polyline points="9 12 11 14 15 10"></polyline>
+                </svg>
+              </div>
+              <h3>1. Today's Care</h3>
+              <p>A quick morning checkup showing mood, meals, hydration, and overall status in a few seconds.</p>
+            </div>
+
+            <!-- Feature 2: Medicines -->
+            <div class="simple-feature-card">
+              <div class="feature-icon-circle amber" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+              </div>
+              <h3>2. Medicines</h3>
+              <p>Clear morning, afternoon, and evening timelines. Only see what is due today without confusing pharmacology terms.</p>
+            </div>
+
+            <!-- Feature 3: Behavior -->
+            <div class="simple-feature-card">
+              <div class="feature-icon-circle mint" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                  <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                  <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                </svg>
+              </div>
+              <h3>3. Behavior & Concerns</h3>
+              <p>Non-alarming observation reporting. If something feels off, easily record it for care staff to review.</p>
+            </div>
+
+            <!-- Feature 4: Documents -->
+            <div class="simple-feature-card">
+              <div class="feature-icon-circle teal" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+              </div>
+              <h3>4. Documents</h3>
+              <p>Insurance cards, care plans, and doctor packets stored quietly until you actually need them.</p>
+            </div>
+
+            <!-- Feature 5: Doctor Visits -->
+            <div class="simple-feature-card">
+              <div class="feature-icon-circle coral" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+              <h3>5. Doctor Visits</h3>
+              <p>Keep upcoming appointment dates, physician notes, and questions in one easily accessible list.</p>
+            </div>
+          </div>
+
+          <div class="features-cta-row">
+            <button type="button" class="btn btn-coral btn-lg" id="features-get-started-btn">
+              <span>Enter CareBridge Dashboard</span>
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Short Footer -->
+      <footer class="site-footer" role="contentinfo">
+        <div class="container">
+          <div class="footer-simple-grid">
+            <div class="footer-brand-info">
+              <div class="brand-logo">
+                <div class="logo-symbol" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                    <path d="M4 19h16"/>
+                    <path d="M7 19v-3"/>
+                    <path d="M17 19v-3"/>
+                  </svg>
+                </div>
+                <span class="brand-name">CareBridge</span>
+              </div>
+              <p class="footer-tagline-text">Simple daily-care companion for family caregivers & senior-care staff.</p>
+            </div>
+
+            <div class="footer-links-col">
+              <h4 class="footer-heading">Quick Actions</h4>
+              <ul class="footer-link-list">
+                <li><button type="button" class="footer-btn-link" id="footer-link-lookup">Patient Lookup</button></li>
+                <li><button type="button" class="footer-btn-link" id="footer-link-demo">Demo Eleanor Miller</button></li>
+                <li><a href="#about" class="footer-link">Core Principles</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-helpline-card">
+              <div class="helpline-title">24/7 Caregiver Support Helpline</div>
+              <a href="tel:18002723900" class="helpline-num" aria-label="Call 24/7 Helpline 1-800-272-3900">1-800-272-3900</a>
+              <span class="helpline-sub">Free, confidential support for families anytime.</span>
+            </div>
+          </div>
+
+          <div class="footer-bottom-bar">
+            <p class="disclaimer-text">
+              <strong>Medical Notice:</strong> CareBridge organizes observations and assists in escalating concerns to care staff. It is not a diagnostic medical device and does not replace professional medical advice.
+            </p>
+            <p class="copyright-text">© 2026 CareBridge. Designed with warmth, simplicity, and dignity for caregivers.</p>
+          </div>
+        </div>
+      </footer>
+
+    </div><!-- End #view-landing -->
+
+
+    <!-- #####################################################################
+         PAGE VIEW 2: PATIENT LOOKUP ("Who are you caring for?")
+         ##################################################################### -->
+    <div id="view-lookup" class="page-view" style="display: none;">
+      <section class="lookup-section">
+        <div class="container container-sm">
+          
+          <div class="lookup-card">
+            <div class="lookup-header">
+              <div class="lookup-icon-box" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <h1 class="lookup-title">Who are you caring for?</h1>
+              <p class="lookup-subtitle">Enter resident details or select the demo profile to start today's care overview.</p>
+            </div>
+
+            <!-- Demo Patient Quick-Select Box -->
+            <div class="demo-patient-selector" id="demo-patient-card" role="button" tabindex="0" aria-label="Select sample patient Eleanor Miller">
+              <div class="demo-badge">Sample Demo Resident</div>
+              <div class="demo-patient-info-row">
+                <div class="avatar-circle">EM</div>
+                <div class="demo-patient-text">
+                  <div class="demo-name">Eleanor Miller</div>
+                  <div class="demo-meta">Patient ID: <strong>SC1024</strong> • Room: <strong>204</strong></div>
+                </div>
+                <span class="demo-select-action">Select →</span>
+              </div>
+            </div>
+
+            <div class="or-divider">
+              <span>or enter details manually</span>
+            </div>
+
+            <!-- Lookup Form -->
+            <form id="patient-lookup-form" class="lookup-form" novalidate>
+              <div class="form-group">
+                <label for="lookup-patient-id" class="form-label">Patient ID</label>
+                <input type="text" id="lookup-patient-id" class="form-input" placeholder="e.g. SC1024" value="SC1024" required />
+              </div>
+
+              <div class="form-group">
+                <label for="lookup-name" class="form-label">Name</label>
+                <input type="text" id="lookup-name" class="form-input" placeholder="e.g. Eleanor Miller" value="Eleanor Miller" required />
+              </div>
+
+              <div class="form-group">
+                <label for="lookup-room" class="form-label">Room Number</label>
+                <input type="text" id="lookup-room" class="form-input" placeholder="e.g. 204" value="204" required />
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-coral btn-lg btn-block" id="btn-submit-lookup">
+                  <span>Check Today's Care</span>
+                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="M12 5l7 7-7 7"></path>
+                  </svg>
+                </button>
+              </div>
+            </form>
+
+            <div class="lookup-footer-note">
+              <button type="button" class="btn-link-muted" id="btn-lookup-back-home">← Back to Home</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div><!-- End #view-lookup -->
+
+
+    <!-- #####################################################################
+         PAGE VIEW 3: MAIN APPLICATION DASHBOARD (Today's Care)
+         ##################################################################### -->
+    <div id="view-dashboard" class="page-view" style="display: none;">
+      
+      <div class="app-container container">
+        
+        <!-- App Patient Header / Greeting -->
+        <div class="patient-greeting-bar">
+          <div class="greeting-left">
+            <div class="greeting-title-row">
+              <h1 class="greeting-heading">Good morning 👋</h1>
+            </div>
+            <div class="patient-title-chip">
+              <span class="patient-name-display" id="dash-patient-name">Eleanor Miller</span>
+              <span class="patient-room-display" id="dash-patient-meta">Room 204 • SC1024</span>
+            </div>
+          </div>
+
+          <div class="greeting-right">
+            <div class="date-badge-wrap">
+              <span class="current-date-pill" id="current-date-display">Today • 1 Sept</span>
+            </div>
+            <button type="button" class="btn btn-outline-teal btn-sm" id="btn-change-patient-dash">
+              Switch Patient
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Status Banner: "✓ Everything looks normal today." -->
+        <div class="daily-status-hero-card normal-status" id="dash-status-card">
+          <div class="status-icon-circle" id="status-icon-symbol">✓</div>
+          <div class="status-message-content">
+            <div class="status-headline" id="status-main-headline">Everything looks normal today.</div>
+            <div class="status-subline" id="status-main-subline">No concerns reported. All morning routines completed on schedule.</div>
+          </div>
+          <div class="status-action-pill">
+            <span class="badge badge-mint">Normal</span>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             Section: TODAY'S CARE (5 Core Metrics at a glance)
+             =================================================================== -->
+        <section class="dashboard-section" aria-label="Today's Care Summary">
+          <div class="section-title-row">
+            <h2 class="dash-section-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              TODAY'S CARE
+            </h2>
+            <span class="dash-section-hint">Instant overview for caregivers</span>
+          </div>
+
+          <div class="care-summary-grid">
+            <!-- 1. Medicines -->
+            <div class="care-metric-card" id="metric-card-meds">
+              <div class="metric-card-header">
+                <span class="metric-card-label">✓ Medicines</span>
+                <span class="badge badge-mint" id="med-count-badge">3 / 3 complete</span>
+              </div>
+              <div class="metric-card-value text-teal" id="med-count-text">3 / 3 complete</div>
+              <div class="metric-card-sub" id="med-next-due-sub">Next due: Donepezil at 8:00 PM</div>
+            </div>
+
+            <!-- 2. Mood -->
+            <div class="care-metric-card" id="metric-card-mood">
+              <div class="metric-card-header">
+                <span class="metric-card-label">Mood</span>
+                <span class="metric-emoji" aria-hidden="true">😊</span>
+              </div>
+              <div class="metric-card-value">Good</div>
+              <div class="metric-card-sub">Calm, smiling, and communicative</div>
+            </div>
+
+            <!-- 3. Meals -->
+            <div class="care-metric-card" id="metric-card-meals">
+              <div class="metric-card-header">
+                <span class="metric-card-label">Meals</span>
+                <span class="metric-emoji" aria-hidden="true">🍽</span>
+              </div>
+              <div class="metric-card-value">Normal</div>
+              <div class="metric-card-sub">Finished oatmeal & light lunch</div>
+            </div>
+
+            <!-- 4. Hydration -->
+            <div class="care-metric-card" id="metric-card-hydration">
+              <div class="metric-card-header">
+                <span class="metric-card-label">Hydration</span>
+                <span class="metric-emoji" aria-hidden="true">💧</span>
+              </div>
+              <div class="metric-card-value">Good</div>
+              <div class="metric-card-sub">4 glasses of water taken today</div>
+            </div>
+
+            <!-- 5. Next Appointment -->
+            <div class="care-metric-card" id="metric-card-appointment">
+              <div class="metric-card-header">
+                <span class="metric-card-label">Next appointment</span>
+                <span class="metric-emoji" aria-hidden="true">📅</span>
+              </div>
+              <div class="metric-card-value text-coral">18 September</div>
+              <div class="metric-card-sub">Dr. Vance (Neurology checkup)</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             Section: TODAY'S MEDICINES (Simple & Relevant for Today Only)
+             =================================================================== -->
+        <section class="dashboard-section" aria-label="Today's Medicines">
+          <div class="section-title-row">
+            <h2 class="dash-section-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+              Today's Medicines
+            </h2>
+            <span class="dash-section-hint">Tap any dose to update status</span>
+          </div>
+
+          <div class="meds-schedule-card">
+            <!-- Morning Dose -->
+            <div class="med-schedule-item completed" data-dose="morning">
+              <div class="med-check-col">
+                <button type="button" class="btn-check-med completed" aria-label="Morning dose completed">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </button>
+              </div>
+              <div class="med-info-col">
+                <div class="med-time-label">Morning • 8:00 AM</div>
+                <div class="med-name-label">Memantine (Namenda) 10mg</div>
+                <div class="med-instruction-label">Taken with breakfast</div>
+              </div>
+              <div class="med-status-col">
+                <span class="badge badge-mint">✓ Done</span>
+              </div>
+            </div>
+
+            <!-- Afternoon Dose -->
+            <div class="med-schedule-item completed" data-dose="afternoon">
+              <div class="med-check-col">
+                <button type="button" class="btn-check-med completed" aria-label="Afternoon dose completed">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </button>
+              </div>
+              <div class="med-info-col">
+                <div class="med-time-label">Afternoon • 12:30 PM</div>
+                <div class="med-name-label">Blood Pressure (Lisinopril) 20mg</div>
+                <div class="med-instruction-label">Taken with water</div>
+              </div>
+              <div class="med-status-col">
+                <span class="badge badge-mint">✓ Done</span>
+              </div>
+            </div>
+
+            <!-- Evening Dose (Interactive) -->
+            <div class="med-schedule-item pending" id="med-item-evening" data-dose="evening">
+              <div class="med-check-col">
+                <button type="button" class="btn-check-med" id="btn-toggle-evening-med" aria-label="Mark Evening Donepezil dose as done">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="check-icon" style="display:none;">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span class="due-circle" aria-hidden="true">○</span>
+                </button>
+              </div>
+              <div class="med-info-col">
+                <div class="med-time-label">Evening • Due at 8:00 PM</div>
+                <div class="med-name-label">Donepezil (Aricept) 10mg</div>
+                <div class="med-instruction-label">Take with light evening snack</div>
+              </div>
+              <div class="med-status-col">
+                <span class="badge badge-amber" id="evening-badge">○ Due at 8:00 PM</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             Section: CONCERN / ESCALATION TRIGGER (Non-Alarming, Visible)
+             =================================================================== -->
+        <section class="dashboard-section escalation-section" aria-label="Report a Concern">
+          <div class="escalation-card">
+            <div class="escalation-content">
+              <div class="escalation-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </div>
+              <div class="escalation-texts">
+                <h3 class="escalation-title">Something doesn't look right?</h3>
+                <p class="escalation-desc">
+                  Notice changes in mood, confusion, missed meals, or trouble sleeping? Report an observation so care staff can review it calmly.
+                </p>
+              </div>
+            </div>
+            <div class="escalation-action">
+              <button type="button" class="btn btn-coral btn-lg" id="btn-open-concern-modal">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span>Report Concern</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Optional Quick Shift Notes for Caregivers -->
+        <section class="dashboard-section" aria-label="Daily Care Notes">
+          <div class="quick-notes-card">
+            <div class="notes-header">
+              <h3 class="notes-title">Caregiver Observation Notes</h3>
+              <span class="notes-time">Updated 1 hour ago</span>
+            </div>
+            <p class="notes-body">
+              "Eleanor enjoyed a short walk in the courtyard after breakfast. She was in bright spirits and recognized family photos without hesitation."
+            </p>
+          </div>
+        </section>
+
+      </div><!-- End .app-container -->
+
+    </div><!-- End #view-dashboard -->
+
+
+    <!-- #####################################################################
+         PAGE VIEW 4: CONCERNS TAB / LOG VIEW
+         ##################################################################### -->
+    <div id="view-concerns" class="page-view" style="display: none;">
+      <div class="app-container container">
+        <div class="subview-header">
+          <div>
+            <h1 class="subview-title">Care Concerns & Observations</h1>
+            <p class="subview-subtitle">Observations reported for Eleanor Miller to coordinate with care staff.</p>
+          </div>
+          <button type="button" class="btn btn-coral" id="btn-new-concern-tab">
+            + Report New Concern
+          </button>
+        </div>
+
+        <!-- Non-diagnostic disclaimer -->
+        <div class="info-alert-banner">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span>CareBridge helps record observations for staff review. It does not replace doctors or emergency clinical intervention.</span>
+        </div>
+
+        <!-- Concerns Feed List -->
+        <div class="concerns-list" id="concerns-log-container">
+          <!-- Dynamic Concerns Injected Here via JavaScript -->
+        </div>
+      </div>
+    </div><!-- End #view-concerns -->
+
+
+    <!-- #####################################################################
+         PAGE VIEW 5: APPOINTMENTS TAB
+         ##################################################################### -->
+    <div id="view-appointments" class="page-view" style="display: none;">
+      <div class="app-container container">
+        <div class="subview-header">
+          <div>
+            <h1 class="subview-title">Doctor Visits & Appointments</h1>
+            <p class="subview-subtitle">Upcoming clinical consultations and therapy sessions for Eleanor Miller.</p>
+          </div>
+        </div>
+
+        <div class="appointments-grid">
+          <!-- Appt 1 -->
+          <div class="appt-card active">
+            <div class="appt-date-block">
+              <span class="appt-month">SEP</span>
+              <span class="appt-day">18</span>
+            </div>
+            <div class="appt-info-block">
+              <div class="appt-header-row">
+                <span class="badge badge-coral">Upcoming in 17 Days</span>
+                <span class="appt-time">10:00 AM • Room 3B Clinic</span>
+              </div>
+              <h3 class="appt-doctor">Dr. Allison Vance — Neurologist</h3>
+              <p class="appt-purpose">Routine memory care review & prescription renewal for Donepezil.</p>
+              <div class="appt-footer-tags">
+                <span class="tag-pill">Bring medication list</span>
+                <span class="tag-pill">Behavior log summary</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Appt 2 -->
+          <div class="appt-card">
+            <div class="appt-date-block">
+              <span class="appt-month">SEP</span>
+              <span class="appt-day">24</span>
+            </div>
+            <div class="appt-info-block">
+              <div class="appt-header-row">
+                <span class="badge badge-teal">Physical Therapy</span>
+                <span class="appt-time">2:00 PM • Wellness Center</span>
+              </div>
+              <h3 class="appt-doctor">Dr. Marcus Reed — PT Mobility Assessment</h3>
+              <p class="appt-purpose">Balance assessment and gentle walking routine review.</p>
+            </div>
+          </div>
+
+          <!-- Appt 3 -->
+          <div class="appt-card">
+            <div class="appt-date-block">
+              <span class="appt-month">OCT</span>
+              <span class="appt-day">12</span>
+            </div>
+            <div class="appt-info-block">
+              <div class="appt-header-row">
+                <span class="badge badge-mint">Primary Care</span>
+                <span class="appt-time">11:15 AM • Health Center</span>
+              </div>
+              <h3 class="appt-doctor">Dr. Elena Gomez — Geriatric Primary Care</h3>
+              <p class="appt-purpose">Quarterly blood pressure and overall health review.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- End #view-appointments -->
+
+
+    <!-- #####################################################################
+         PAGE VIEW 6: MEDICAL DOCUMENTS (Under "More")
+         ##################################################################### -->
+    <div id="view-documents" class="page-view" style="display: none;">
+      <div class="app-container container">
+        <div class="subview-header">
+          <div>
+            <h1 class="subview-title">Medical Documents & Cards</h1>
+            <p class="subview-subtitle">Stored safely until you or the doctor need them.</p>
+          </div>
+        </div>
+
+        <div class="documents-grid">
+          <div class="doc-file-card">
+            <div class="doc-file-icon">📄</div>
+            <div class="doc-file-info">
+              <div class="doc-file-name">Neurology MRI Scan Report</div>
+              <div class="doc-file-meta">Dr. Vance • Updated 3 weeks ago • PDF (2.4 MB)</div>
+            </div>
+            <button type="button" class="btn btn-outline-teal btn-sm" onclick="alert('Viewing Eleanor Miller MRI Scan Report. Securely decrypted.')">View</button>
+          </div>
+
+          <div class="doc-file-card">
+            <div class="doc-file-icon">🪪</div>
+            <div class="doc-file-info">
+              <div class="doc-file-name">Medicare & Secondary Insurance Cards</div>
+              <div class="doc-file-meta">Scanned Copy • Policy #MED-9920148</div>
+            </div>
+            <button type="button" class="btn btn-outline-teal btn-sm" onclick="alert('Viewing Eleanor Miller Insurance Cards.')">View</button>
+          </div>
+
+          <div class="doc-file-card">
+            <div class="doc-file-icon">🩸</div>
+            <div class="doc-file-info">
+              <div class="doc-file-name">Comprehensive Blood Chemistry Panel</div>
+              <div class="doc-file-meta">LabCorp • Fasting Results • PDF (1.1 MB)</div>
+            </div>
+            <button type="button" class="btn btn-outline-teal btn-sm" onclick="alert('Viewing Eleanor Miller Blood Panel Results.')">View</button>
+          </div>
+
+          <div class="doc-file-card">
+            <div class="doc-file-icon">⚖️</div>
+            <div class="doc-file-info">
+              <div class="doc-file-name">Medical Power of Attorney (POA)</div>
+              <div class="doc-file-meta">Verified Legal Directive • PDF (840 KB)</div>
+            </div>
+            <button type="button" class="btn btn-outline-teal btn-sm" onclick="alert('Viewing Eleanor Miller Medical POA.')">View</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End #view-documents -->
+
+
+    <!-- #####################################################################
+         PAGE VIEW 7: HEALTH HISTORY (Under "More")
+         ##################################################################### -->
+    <div id="view-history" class="page-view" style="display: none;">
+      <div class="app-container container">
+        <div class="subview-header">
+          <div>
+            <h1 class="subview-title">Health History & Baselines</h1>
+            <p class="subview-subtitle">Non-critical background information kept separate from daily care.</p>
+          </div>
+        </div>
+
+        <div class="history-cards-grid">
+          <div class="history-card">
+            <h3>Key Baseline Information</h3>
+            <ul class="history-detail-list">
+              <li><strong>Full Name:</strong> Eleanor Miller</li>
+              <li><strong>Age / DOB:</strong> 78 yrs (14 March 1948)</li>
+              <li><strong>Primary Condition:</strong> Mild Memory Loss (Stage 4)</li>
+              <li><strong>Blood Group:</strong> A+ Positive</li>
+            </ul>
+          </div>
+
+          <div class="history-card">
+            <h3>Allergies & Sensitivities</h3>
+            <ul class="history-detail-list">
+              <li><strong class="text-coral">Penicillin:</strong> Moderate hives reaction</li>
+              <li><strong class="text-coral">Sulfa Drugs:</strong> Mild sensitivity</li>
+              <li><strong>Latex:</strong> No known allergy</li>
+            </ul>
+          </div>
+
+          <div class="history-card">
+            <h3>Emergency Contacts</h3>
+            <ul class="history-detail-list">
+              <li><strong>Primary Caregiver:</strong> Bhavika (Daughter) — (555) 349-2810</li>
+              <li><strong>Secondary Contact:</strong> Sarah Miller (Sister) — (555) 782-9912</li>
+              <li><strong>Attending Physician:</strong> Dr. Gomez — (555) 901-4400</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div><!-- End #view-history -->
+
+
+    <!-- #####################################################################
+         PAGE VIEW 8: CARE RESOURCES (Educational PDFs Under "More")
+         ##################################################################### -->
+    <div id="view-resources" class="page-view" style="display: none;">
+      <div class="app-container container">
+        <div class="subview-header">
+          <div>
+            <h1 class="subview-title">Care Resources & Educational Guides</h1>
+            <p class="subview-subtitle">Helpful downloadable guides for caregivers who want to explore deeper.</p>
+          </div>
+        </div>
+
+        <div class="resources-grid">
+          <!-- Guide 1 -->
+          <div class="resource-card">
+            <div class="resource-badge">PDF Guide • 4 Pages</div>
+            <h3 class="resource-title">Dementia Daily Routine & Calming Cues</h3>
+            <p class="resource-desc">Practical tips for morning orientation, gentle pacing, and creating soothing environments.</p>
+            <div class="resource-footer">
+              <button type="button" class="btn btn-teal btn-sm btn-view-resource" data-guide="routine">
+                Open Guide (PDF)
+              </button>
+            </div>
+          </div>
+
+          <!-- Guide 2 -->
+          <div class="resource-card">
+            <div class="resource-badge">PDF Guide • 3 Pages</div>
+            <h3 class="resource-title">Understanding Sundowning & Dusk Agitation</h3>
+            <p class="resource-desc">Evidence-backed strategies on lighting, noise reduction, and comforting evening routines.</p>
+            <div class="resource-footer">
+              <button type="button" class="btn btn-teal btn-sm btn-view-resource" data-guide="sundowning">
+                Open Guide (PDF)
+              </button>
+            </div>
+          </div>
+
+          <!-- Guide 3 -->
+          <div class="resource-card">
+            <div class="resource-badge">PDF Guide • 5 Pages</div>
+            <h3 class="resource-title">Family Caregiver Respite & Self-Care</h3>
+            <p class="resource-desc">How to share care tasks among siblings, prevent burnout, and access community support.</p>
+            <div class="resource-footer">
+              <button type="button" class="btn btn-teal btn-sm btn-view-resource" data-guide="respite">
+                Open Guide (PDF)
+              </button>
+            </div>
+          </div>
+
+          <!-- Guide 4 -->
+          <div class="resource-card">
+            <div class="resource-badge">PDF Guide • 2 Pages</div>
+            <h3 class="resource-title">Doctor Visit Preparation Checklist</h3>
+            <p class="resource-desc">Questions to ask neurologists, tracking medication side-effects, and visit summary tips.</p>
+            <div class="resource-footer">
+              <button type="button" class="btn btn-teal btn-sm btn-view-resource" data-guide="doctor-prep">
+                Open Guide (PDF)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- End #view-resources -->
+
+
+    <!-- #####################################################################
+         PAGE VIEW 9: PROFILE & SETTINGS (Under "More")
+         ##################################################################### -->
+    <div id="view-settings" class="page-view" style="display: none;">
+      <div class="app-container container container-sm">
+        <div class="subview-header">
+          <div>
+            <h1 class="subview-title">Caregiver Settings</h1>
+            <p class="subview-subtitle">Preferences for notifications and care team coordination.</p>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3 class="settings-section-title">Care Staff Notification Alerts</h3>
+          
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Instant SMS when Concern Reported</div>
+              <div class="settings-hint">Notify duty nurse when a high-priority observation is logged</div>
+            </div>
+            <input type="checkbox" checked style="width: 22px; height: 22px; accent-color: var(--color-primary-teal);" />
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Daily 8:00 PM Evening Medicine Reminder</div>
+              <div class="settings-hint">Gentle alert before evening dose is due</div>
+            </div>
+            <input type="checkbox" checked style="width: 22px; height: 22px; accent-color: var(--color-primary-teal);" />
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">High-Contrast Tablet Mode</div>
+              <div class="settings-hint">Optimized for iPad displays in bright rooms</div>
+            </div>
+            <input type="checkbox" checked style="width: 22px; height: 22px; accent-color: var(--color-primary-teal);" />
+          </div>
+
+          <div style="margin-top: 24px; text-align: right;">
+            <button type="button" class="btn btn-teal" onclick="alert('Preferences saved.')">Save Preferences</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End #view-settings -->
+
+  </main>
+
+
+  <!-- =========================================================================
+       CONCERN REPORTING MODAL DIALOG
+       ========================================================================= -->
+  <div class="modal-backdrop" id="concern-modal" role="dialog" aria-modal="true" aria-labelledby="modal-concern-title" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <div>
+            <h2 class="modal-title" id="modal-concern-title">What did you notice?</h2>
+            <p class="modal-subtitle">Select any changes observed with Eleanor Miller today.</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-concern-modal" aria-label="Close modal">✕</button>
+      </div>
+
+      <form id="concern-report-form">
+        <div class="modal-body">
+          <fieldset class="concern-options-group">
+            <legend class="options-legend">Select what applies:</legend>
+
+            <label class="concern-check-pill">
+              <input type="checkbox" name="concernType" value="Change in mood" />
+              <span class="pill-text">Change in mood</span>
+            </label>
+
+            <label class="concern-check-pill">
+              <input type="checkbox" name="concernType" value="Confusion" />
+              <span class="pill-text">Confusion</span>
+            </label>
+
+            <label class="concern-check-pill">
+              <input type="checkbox" name="concernType" value="Missed medicine" />
+              <span class="pill-text">Missed medicine</span>
+            </label>
+
+            <label class="concern-check-pill">
+              <input type="checkbox" name="concernType" value="Trouble sleeping" />
+              <span class="pill-text">Trouble sleeping</span>
+            </label>
+
+            <label class="concern-check-pill">
+              <input type="checkbox" name="concernType" value="Not eating or drinking" />
+              <span class="pill-text">Not eating or drinking</span>
+            </label>
+
+            <label class="concern-check-pill">
+              <input type="checkbox" name="concernType" value="Fall or injury" />
+              <span class="pill-text">Fall or injury</span>
+            </label>
+
+            <label class="concern-check-pill">
+              <input type="checkbox" name="concernType" value="Something else" id="check-something-else" />
+              <span class="pill-text">Something else</span>
+            </label>
+          </fieldset>
+
+          <div class="form-group" style="margin-top: 18px;">
+            <label for="concern-note-input" class="form-label">Brief Note / Details (Optional)</label>
+            <textarea id="concern-note-input" class="form-textarea" rows="3" placeholder="e.g. Eleanor seemed unusually quiet during lunch and refused afternoon water..."></textarea>
+          </div>
+
+          <div class="concern-disclaimer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span>This report is recorded for care staff and family review. For immediate medical emergencies, call emergency services immediately.</span>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-teal" id="btn-cancel-concern">Cancel</button>
+          <button type="submit" class="btn btn-coral btn-lg" id="btn-submit-concern">
+            Report Concern
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       CONCERN CONFIRMATION TOAST / NOTIFICATION
+       ========================================================================= -->
+  <div class="toast-notification" id="concern-toast" role="status" aria-live="polite" style="display: none;">
+    <div class="toast-icon">✓</div>
+    <div class="toast-content">
+      <div class="toast-title">Concern recorded.</div>
+      <div class="toast-message">Care staff can review this and decide whether further attention is needed.</div>
+    </div>
+    <button type="button" class="toast-close" id="btn-close-toast" aria-label="Dismiss notification">✕</button>
+  </div>
+
+
+  <!-- =========================================================================
+       EDUCATIONAL PDF RESOURCE PREVIEW MODAL
+       ========================================================================= -->
+  <div class="modal-backdrop" id="resource-modal" role="dialog" aria-modal="true" aria-labelledby="modal-resource-title" style="display: none;">
+    <div class="modal-card modal-card-lg">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge" aria-hidden="true">📄</div>
+          <div>
+            <h2 class="modal-title" id="modal-resource-title">Care Resource Guide</h2>
+            <p class="modal-subtitle">CareBridge Family Educational Series</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-resource-modal" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-body" id="resource-modal-content">
+        <!-- Injected PDF guide content -->
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-teal" id="btn-close-resource-action">Close</button>
+        <button type="button" class="btn btn-teal" onclick="window.print()">Print / Save PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>
